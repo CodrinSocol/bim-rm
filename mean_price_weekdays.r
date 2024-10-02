@@ -23,7 +23,7 @@ handles <- legend_info[[1]]
 labels <- legend_info[[2]]
 
 # Modify the labels
-new_labels = c("Baseball", "Basketball")
+new_labels <- c("Baseball", "Basketball")
 
 # Set the legend with the modified labels and original handles and upscale it
 plt$legend(handles, new_labels, loc = "upper left", fontsize = 20)
