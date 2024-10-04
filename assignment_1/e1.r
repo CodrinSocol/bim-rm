@@ -13,7 +13,7 @@ pd <- import("pandas")
 np <- import("numpy")
 
 # Load the dataset
-file_path <- "data/ebay.csv"
+file_path <- "assignment_1/data/ebay.csv"
 ebay_data <- read.csv(file_path, header = TRUE, sep = ";")
 
 # Cast all columns to numeric values
@@ -39,7 +39,7 @@ ebay_data$weekday <- numeric_weekday
 # Exercise 1, part B
 
 # remove all rows that have at least one column value NA
-# ebay_data <- na.omit(ebay_data)
+ebay_data <- na.omit(ebay_data)
 
 # calculate the first and third quartiles of the sold_price column and remove all observations not in that range
 # q1 <- quantile(ebay_data$sold_price, 0.25)
@@ -48,10 +48,10 @@ ebay_data$weekday <- numeric_weekday
 filtered_data <- ebay_data[ebay_data$sold_price <= 50000, ]
 
 # Clear figure between runs
-plt$figure()$clear()
-plt$close()
-plt$cla()
-plt$clf()
+# plt$figure()$clear()
+# plt$close()
+# plt$cla()
+# plt$clf()
 
 # sns$boxplot(x = "sold_price", data = filtered_data)
 # plt$show()
@@ -68,10 +68,10 @@ plt$clf()
 # labels <- legend_info[[2]]
 
 # Clear figure between runs
-plt$figure()$clear()
-plt$close()
-plt$cla()
-plt$clf()
+# plt$figure()$clear()
+# plt$close()
+# plt$cla()
+# plt$clf()
 
 # plot 1: price vs weekday with hue per basketball vs baseball
 # sns$barplot(x = "weekday", y = "sold_price", data = filtered_data, hue = "basketball")$set_title("Figure 2: Price of sold basketball/baseball cards per Day of Week.")
@@ -88,10 +88,10 @@ plt$clf()
 # plt$show()
 
 # Clear figure between runs
-plt$figure()$clear()
-plt$close()
-plt$cla()
-plt$clf()
+# plt$figure()$clear()
+# plt$close()
+# plt$cla()
+# plt$clf()
 
 # plot 2: price vs card_grade with hue per basketball vs baseball
 # sns$barplot(x = "card_grade", y = "sold_price", data = filtered_data, hue = "basketball")$set_title("Figure 3: Price of sold basketball/baseball cards per card quality.")
@@ -122,29 +122,49 @@ plt$clf()
 # labels <- legend_info[[2]]
 # plt$show()
 
-# plot 3: price vs active_player
-sns$barplot(x = "active_player", y = "sold_price", data = filtered_data, hue = "basketball")$set_title("Figure 4: Card prices per Active Player (active vs retired).")
-plt$ylabel("Card Price (sold_price)", fontsize = 10)
-plt$xlabel("Active/Retired Player (active_player)", fontsize = 10)
-plt$xticks(np$arange(2), c("Retired", "Active"), fontsize = 8)
-new_labels <- c("Baseball", "Basketball")
+# # plot 3: price vs active_player
+# sns$barplot(x = "active_player", y = "sold_price", data = filtered_data, hue = "basketball")$set_title("Figure 4: Card prices per Active Player (active vs retired).")
+# plt$ylabel("Card Price (sold_price)", fontsize = 10)
+# plt$xlabel("Active/Retired Player (active_player)", fontsize = 10)
+# plt$xticks(np$arange(2), c("Retired", "Active"), fontsize = 8)
+# new_labels <- c("Baseball", "Basketball")
 
-# # Set the legend with the modified labels and original handles and upscale it
-plt$legend(handles, new_labels, loc = "upper left", fontsize = 10)
-legend_info <- plt$gca()$get_legend_handles_labels()
-handles <- legend_info[[1]]
-labels <- legend_info[[2]]
-plt$show()
+# # # Set the legend with the modified labels and original handles and upscale it
+# plt$legend(handles, new_labels, loc = "upper left", fontsize = 10)
+# legend_info <- plt$gca()$get_legend_handles_labels()
+# handles <- legend_info[[1]]
+# labels <- legend_info[[2]]
+# plt$show()
 
 # Exercise 1, part C
 # change sold_price to ln(sold_price)
-# ebay_data$ln_price <- log(ebay_data$sold_price)
+ebay_data$ln_price <- log(ebay_data$sold_price)
 
-# print(head(ebay_data))
+# # perform linear regression 1 on the dataset
+model <- lm(ln_price ~ card_grade, data = ebay_data)
+# stargazer(model, type="text")
 
-# # perform linear regression on the dataset
-# model <- lm(ln_price ~ card_grade, data = ebay_data)
+stargazer(model, type="html",title="Linear Regreesion", out="assignment_1/html_tables/LM1.html")
 
+# perform linear regression 2 on the dataset
+model2 <- lm(ln_price ~ card_grade + basketball, data = ebay_data)
+# stargazer(model2, type="text")
+
+stargazer(model2, type="html",title= "Linear Regreesion", out="assignment_1/html_tables/LM2.html")
+
+# perform linear regression 3 on the dataset
+model3 <- lm(ln_price ~ card_grade + basketball + active_player , data = ebay_data)
+# stargazer(model3, type="text")
+
+stargazer(model3, type="html",title= "Linear Regreesion", out="assignment_1/html_tables/LM3.html")
+
+# # perform linear regression 4 on the dataset
+model4 <- lm(ln_price ~ card_grade + basketball + active_player + card_listing_format_buy_it_now , data = ebay_data)
+# stargazer(model4, type="html")
+
+stargazer(model4, type="html", title="Linear Regreesion",out="assignment_1/html_tables/LM4.html")
+
+stargazer(model, model2, model3, model4, title="last", out= "assignment_1/html_tables/LM_all.html")
 # # print the model summary
 # print(summary(model, type="latex"))
 
