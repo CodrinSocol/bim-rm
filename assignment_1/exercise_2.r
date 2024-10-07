@@ -7,7 +7,7 @@ whr_data <- read.csv("data/whr.csv", header = TRUE, sep = ";")
 library(stargazer)
 stargazer(whr_data, type = "html", title = "Table 4: The descriptive statistics of the whr dataset (including NA values)", summary = TRUE, out = "whr_data.html")
 cleaned_data <- na.omit(whr_data)
-stargazer(cleaned_data, type = "html", title = "Table 5: The descriptive statistics of the whr dataset (after the removal of NA values)", summary = TRUE, out = "cleaned_data.html")
+stargazer(cleaned_data, type = "html", title = "Table 5: The descriptive statistics of the whr dataset (after the removal of NA values)", summary = TRUE, out = "html_tables/table_5_final.html")
 
 # 2b
 library(dplyr)
@@ -22,7 +22,7 @@ print(top_5_happiest_countries)
 install.packages("xtable")
 library(xtable)
 top_5_happiest_countries_table <- xtable(top_5_happiest_countries)
-stargazer(top_5_happiest_countries, type = "html", title = "The 5 countries with the highest average happiness score from the dataset", file = "output.html")
+stargazer(top_5_happiest_countries, type = "html", title = "The 5 countries with the highest average happiness score from the dataset", file = "html_tables/table_6_final.html")
 shapiro_test <- shapiro.test(avg_happiness$`Average_Happiness`)
 print(shapiro_test)
 shapiro_test_full <- shapiro.test(whr_data$`Life.Ladder`)
@@ -65,7 +65,7 @@ stargazer(rsltRandom, align = TRUE, no.space = TRUE, intercept.bottom = FALSE, t
 stargazer(rsltWithin, rsltRandom, 
           align = TRUE, no.space = TRUE, intercept.bottom = FALSE, type = "text", title = "Table 7: Regression on Life.Ladder on GDP per capita, Social support, Healthy life expectancy at birth, Freedom to make life choice and Generosity", 
           column.labels = c("Fixed", "Random"), 
-          out = "comparison.html", model.names = FALSE)
+          out = "html_tables/table_7_final.html", model.names = FALSE)
 
 # 2d
 phtest(rsltWithin, rsltRandom)
