@@ -136,35 +136,35 @@ filtered_data <- ebay_data[ebay_data$sold_price <= 50000, ]
 # labels <- legend_info[[2]]
 # plt$show()
 
-# Exercise 1, part C
-# change sold_price to ln(sold_price)
-ebay_data$ln_price <- log(ebay_data$sold_price)
+# # Exercise 1, part C
+# # change sold_price to ln(sold_price)
+# ebay_data$ln_price <- log(ebay_data$sold_price)
 
-# # perform linear regression 1 on the dataset
-model <- lm(ln_price ~ card_grade, data = ebay_data)
-# stargazer(model, type="text")
+# # # perform linear regression 1 on the dataset
+# model <- lm(ln_price ~ card_grade, data = ebay_data)
+# # stargazer(model, type="text")
 
-stargazer(model, type="html",title="Linear Regreesion", out="assignment_1/html_tables/LM1.html")
+# stargazer(model, type="html",title="Linear Regreesion", out="assignment_1/html_tables/LM1.html")
 
-# perform linear regression 2 on the dataset
-model2 <- lm(ln_price ~ card_grade + basketball, data = ebay_data)
-# stargazer(model2, type="text")
+# # perform linear regression 2 on the dataset
+# model2 <- lm(ln_price ~ card_grade + basketball, data = ebay_data)
+# # stargazer(model2, type="text")
 
-stargazer(model2, type="html",title= "Linear Regreesion", out="assignment_1/html_tables/LM2.html")
+# stargazer(model2, type="html",title= "Linear Regreesion", out="assignment_1/html_tables/LM2.html")
 
-# perform linear regression 3 on the dataset
-model3 <- lm(ln_price ~ card_grade + basketball + active_player , data = ebay_data)
-# stargazer(model3, type="text")
+# # perform linear regression 3 on the dataset
+# model3 <- lm(ln_price ~ card_grade + basketball + active_player , data = ebay_data)
+# # stargazer(model3, type="text")
 
-stargazer(model3, type="html",title= "Linear Regreesion", out="assignment_1/html_tables/LM3.html")
+# stargazer(model3, type="html",title= "Linear Regreesion", out="assignment_1/html_tables/LM3.html")
 
-# # perform linear regression 4 on the dataset
-model4 <- lm(ln_price ~ card_grade + basketball + active_player + card_listing_format_buy_it_now , data = ebay_data)
-# stargazer(model4, type="html")
+# # # perform linear regression 4 on the dataset
+# model4 <- lm(ln_price ~ card_grade + basketball + active_player + card_listing_format_buy_it_now , data = ebay_data)
+# # stargazer(model4, type="html")
 
-stargazer(model4, type="html", title="Linear Regreesion",out="assignment_1/html_tables/LM4.html")
+# stargazer(model4, type="html", title="Linear Regreesion",out="assignment_1/html_tables/LM4.html")
 
-stargazer(model, model2, model3, model4, title="last", out= "assignment_1/html_tables/LM_all.html")
+# stargazer(model, model2, model3, model4, title="last", out= "assignment_1/html_tables/LM_all.html")
 # # print the model summary
 # print(summary(model, type="latex"))
 
@@ -178,3 +178,12 @@ stargazer(model, model2, model3, model4, title="last", out= "assignment_1/html_t
 # # add the line of the regression fit
 # plt$plot(ebay_data$card_grade, predict(model), color = "red")
 # plt$savefig("plots/grade_sold_price_regression.png")
+
+
+# Exercise 1, part E
+
+model_e1 <- lm(card_grade ~ seller_feedback_score, data = ebay_data)
+model_e2 <- lm(card_grade ~ active_player, data = ebay_data)
+
+stargazer(model_e1, model_e2, type="html", title="Linear Regression", out="assignment_1/html_tables/LM_e.html")
+
